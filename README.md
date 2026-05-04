@@ -67,7 +67,7 @@ WeatherApp/
 ### 1. Cloneaza repository-ul
 
 ```bash
-git clone https://github.com/Mois1k/WeatherApp.git
+git clone https://github.com/Mois1k/SmartWeatherAssistant.git
 cd WeatherApp
 ```
 
