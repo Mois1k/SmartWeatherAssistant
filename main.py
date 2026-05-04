@@ -279,9 +279,14 @@ class SmartWeatherAssistant(ctk.CTk):
             f"Se simte ca: {weather['feels_like']}°C\n"
 =======
             f"Conditii: {weather['description']}\n"
+<<<<<<< HEAD
             f"Temperatura API: {weather['temperature']}°C\n"
             f"Se simte ca API: {weather['feels_like']}°C\n\n"
 >>>>>>> a26f391 (format)
+=======
+            f"Temperatura: {weather['temperature']}°C\n"
+            f"Se simte ca: {weather['feels_like']}°C\n\n"
+>>>>>>> 9c59c84 (gui text fix)
             f"Umiditate: {weather['humidity']}%\n"
             f"Presiune: {weather['pressure']} hPa\n"
             f"Vant: {weather['wind_speed']} m/s\n"
