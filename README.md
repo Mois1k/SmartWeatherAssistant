@@ -68,7 +68,7 @@ WeatherApp/
 
 ```bash
 git clone https://github.com/Mois1k/SmartWeatherAssistant.git
-cd WeatherApp
+cd SmartWeatherApp
 ```
 
 ### 2. Instaleaza dependentele
