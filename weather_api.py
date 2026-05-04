@@ -11,18 +11,18 @@ def get_current_weather(city: str) -> dict:
         "q": city,
         "appid": API_KEY,
         "units": "metric",
-        "lang": "ro",
+        "lang": "en",
     }
 
     response = requests.get(BASE_CURRENT_URL, params=params, timeout=10)
 
     if response.status_code != 200:
         try:
-            message = response.json().get("message", "Eroare necunoscută")
+            message = response.json().get("message", "Eroare necunoscuta")
         except ValueError:
-            message = "Eroare necunoscută"
+            message = "Eroare necunoscuta"
 
-        raise WeatherAPIError(f"Nu am putut lua vremea actuală: {message}")
+        raise WeatherAPIError(f"Nu am putut lua vremea actuala: {message}")
 
     data = response.json()
 
@@ -51,9 +51,9 @@ def get_forecast(city: str, limit: int = 8) -> list[dict]:
 
     if response.status_code != 200:
         try:
-            message = response.json().get("message", "Eroare necunoscută")
+            message = response.json().get("message", "Eroare necunoscuta")
         except ValueError:
-            message = "Eroare necunoscută"
+            message = "Eroare necunoscuta"
 
         raise WeatherAPIError(f"Nu am putut lua forecast-ul: {message}")
 
