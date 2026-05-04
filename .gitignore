@@ -3,6 +3,3 @@ __pycache__/
 *.pyc
 config.py
 .env
-data/*
-!data/.gitkeep
-models/
