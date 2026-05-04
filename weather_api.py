@@ -44,7 +44,7 @@ def get_forecast(city: str, limit: int = 8) -> list[dict]:
         "q": city,
         "appid": API_KEY,
         "units": "metric",
-        "lang": "ro",
+        "lang": "en",
     }
 
     response = requests.get(BASE_FORECAST_URL, params=params, timeout=10)
