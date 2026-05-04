@@ -99,14 +99,6 @@ API_KEY = "CHEIA_TA_OPENWEATHERMAP"
 BASE_CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather"
 BASE_FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
 ```
-
-```python
-API_KEY = "PUNE_CHEIA_TA_AICI"
-
-BASE_CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather"
-BASE_FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
-```
-
 ## Antrenarea modelului ML
 
 inainte de prima rulare completa, antreneaza modelul:
