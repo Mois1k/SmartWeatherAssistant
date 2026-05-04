@@ -42,22 +42,22 @@ Asistent meteo cu GUI, API si predictii ML personalizate.
 ## Structura proiectului
 
 ```text
-WeatherApp/
-│
+SmartWeatherAssistant/
+|
 ├── main.py                  # Interfata grafica a aplicatiei
 ├── weather_api.py           # Comunicarea cu OpenWeatherMap API
-├── ml_model.py              # Predictii ML pentru vreme actuala si forecast
+├── ml.py                    # Predictii ML pentru vreme actuala si forecast
 ├── train_model.py           # Antrenarea modelului initial
 ├── retrain_model.py         # Reantrenarea modelului cu feedback personal
 ├── feedback_manager.py      # Salvarea feedback-ului utilizatorului
 ├── config.py                # Cheia API si endpoint-urile
 ├── requirements.txt         # Dependentele proiectului
 ├── README.md
-│
+|
 ├── models/
-│   ├── weather_model.pkl
-│   └── weather_model_base_backup.pkl
-│
+|   ├── weather_model.pkl
+|   └── weather_model_base_backup.pkl
+|
 └── data/
     └── user_feedback.csv
 ```
@@ -68,23 +68,66 @@ WeatherApp/
 
 ```bash
 git clone https://github.com/Mois1k/SmartWeatherAssistant.git
-cd SmartWeatherApp
+cd SmartWeatherAssistant
 ```
 
-### 2. Instaleaza dependentele
+### 2. Creeaza un mediu virtual Python
 
-Pe WSL / Ubuntu, system-wide:
+Este recomandat sa instalezi dependentele intr-un mediu virtual, nu direct in sistem.
+
+Pe WSL / Ubuntu:
 
 ```bash
 sudo apt update
-sudo apt install python3-pip python3-tk python3-requests python3-pandas python3-sklearn python3-joblib
-sudo python3 -m pip install customtkinter --break-system-packages
+sudo apt install python3-venv python3-tk
 ```
 
-Alternativ, cu `requirements.txt`:
+Creeaza mediul virtual:
 
 ```bash
-sudo python3 -m pip install -r requirements.txt --break-system-packages
+python3 -m venv .venv
+```
+
+Activeaza mediul virtual:
+
+```bash
+source .venv/bin/activate
+```
+
+Dupa activare, terminalul ar trebui sa afiseze ceva de forma:
+
+```text
+(.venv) user@computer:~/SmartWeatherAssistant$
+```
+
+### 3. Actualizeaza pip
+
+```bash
+python -m pip install --upgrade pip
+```
+
+### 4. Instaleaza dependentele
+
+```bash
+python -m pip install requests customtkinter pandas scikit-learn joblib
+```
+
+Alternativ, daca fisierul `requirements.txt` contine toate dependentele necesare, poti folosi:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Nu folosi:
+
+```bash
+sudo python3 -m pip install ...
+```
+
+si nu este nevoie de:
+
+```bash
+--break-system-packages
 ```
 
 ## Configurare API
@@ -99,12 +142,15 @@ API_KEY = "CHEIA_TA_OPENWEATHERMAP"
 BASE_CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather"
 BASE_FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
 ```
+
+Inlocuieste `CHEIA_TA_OPENWEATHERMAP` cu cheia ta API de la OpenWeatherMap.
+
 ## Antrenarea modelului ML
 
-inainte de prima rulare completa, antreneaza modelul:
+Inainte de prima rulare completa, antreneaza modelul:
 
 ```bash
-python3 train_model.py
+python train_model.py
 ```
 
 Modelul va fi salvat in:
@@ -123,8 +169,16 @@ Model salvat in: models/weather_model.pkl
 
 ## Rularea aplicatiei
 
+Asigura-te ca mediul virtual este activ:
+
 ```bash
-python3 main.py
+source .venv/bin/activate
+```
+
+Ruleaza aplicatia:
+
+```bash
+python main.py
 ```
 
 Apoi introdu un oras, de exemplu:
@@ -157,7 +211,7 @@ Acest feedback este folosit ulterior pentru personalizarea modelului.
 Dupa ce ai strans mai multe feedback-uri, ruleaza:
 
 ```bash
-python3 retrain_model.py
+python retrain_model.py
 ```
 
 Scriptul va:
@@ -200,7 +254,58 @@ Modelul este initial antrenat pe date generate artificial, apoi poate fi persona
 
 ## Nota despre personalizare
 
-Predictiile ML devin mai personalizate pe masura ce utilizatorul ofera mai mult feedback. Pentru rezultate mai vizibile, este recomandat sa colectezi cel putin 10–20 feedback-uri inainte de reantrenare.
+Predictiile ML devin mai personalizate pe masura ce utilizatorul ofera mai mult feedback.
+
+Pentru rezultate mai vizibile, este recomandat sa colectezi cel putin 10-20 feedback-uri inainte de reantrenare.
+
+## Probleme frecvente
+
+### Eroare: `--break-system-packages` nu exista
+
+Nu folosi acest flag. Creeaza si activeaza un mediu virtual:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install requests customtkinter pandas scikit-learn joblib
+```
+
+### Eroare: `No module named customtkinter`
+
+Activeaza mediul virtual si reinstaleaza dependentele:
+
+```bash
+source .venv/bin/activate
+python -m pip install customtkinter
+```
+
+### Eroare: `No module named pandas`, `sklearn` sau `joblib`
+
+Instaleaza dependentele lipsa:
+
+```bash
+source .venv/bin/activate
+python -m pip install pandas scikit-learn joblib
+```
+
+### Eroare legata de `config.py`
+
+Verifica daca fisierul `config.py` exista in radacina proiectului si contine cheia API:
+
+```python
+API_KEY = "CHEIA_TA_OPENWEATHERMAP"
+
+BASE_CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather"
+BASE_FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
+```
+
+### Eroare legata de Tkinter
+
+Pe WSL / Ubuntu, instaleaza pachetul pentru Tkinter:
+
+```bash
+sudo apt install python3-tk
+```
 
 ## Posibile imbunatatiri viitoare
 
@@ -221,3 +326,7 @@ Predictiile ML devin mai personalizate pe masura ce utilizatorul ofera mai mult 
   - bicicleta
   - condus
 - Packaging ca aplicatie desktop
+
+## Licenta
+
+Acest proiect este licentiat sub licenta MIT.
